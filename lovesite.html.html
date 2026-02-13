@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>데이트 신청 💌</title>
+
+<style>
+
+body {
+    background: linear-gradient(to bottom, #ffe6f0, #ffcce0);
+    text-align: center;
+    font-family: Arial;
+    height: 100vh;
+    overflow: hidden;
+    margin: 0;
+}
+
+/* 중앙 정렬 */
+.container {
+    margin-top: 30vh;
+}
+
+h1 {
+    font-size: 26px;
+}
+
+button {
+    font-size: 18px;
+    padding: 14px 24px;
+    margin: 10px;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+#yes {
+    background-color: #ff4d6d;
+    color: white;
+}
+
+#no {
+    background-color: gray;
+    color: white;
+    position: absolute;
+}
+
+/* 하트 스타일 */
+.heart {
+    position: absolute;
+    color: red;
+    font-size: 20px;
+    animation: float 4s linear infinite;
+}
+
+/* 하트 위로 올라가는 애니메이션 */
+@keyframes float {
+    0% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-800px) scale(1.5);
+        opacity: 0;
+    }
+}
+
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h1>데이트를 하시겠습니까? 💖</h1>
+    <button id="yes">동의 💕</button>
+    <button id="no">거절 😢</button>
+</div>
+
+<script>
+
+const noButton = document.getElementById("no");
+const yesButton = document.getElementById("yes");
+
+/* 거절 버튼 도망 */
+function moveButton() {
+
+    const maxX = window.innerWidth - noButton.offsetWidth;
+    const maxY = window.innerHeight - noButton.offsetHeight;
+
+    const x = Math.random() * maxX;
+    const y = Math.random() * maxY;
+
+    noButton.style.left = x + "px";
+    noButton.style.top = y + "px";
+}
+
+noButton.addEventListener("mouseover", moveButton);
+noButton.addEventListener("touchstart", moveButton);
+
+/* 동의 버튼 클릭 */
+yesButton.addEventListener("click", function() {
+
+    document.body.innerHTML = `
+        <h1 style="margin-top:40vh;">💖 데이트 확정! 💖</h1>
+        <p>이제 도망 못가요 😆</p>
+    `;
+
+    startHearts();
+});
+
+/* 하트 생성 함수 */
+function startHearts() {
+
+    setInterval(function() {
+
+        const heart = document.createElement("div");
+        heart.classList.add("heart");
+        heart.innerHTML = "💖";
+
+        heart.style.left = Math.random() * window.innerWidth + "px";
+        heart.style.top = window.innerHeight + "px";
+
+        document.body.appendChild(heart);
+
+        setTimeout(() => {
+            heart.remove();
+        }, 4000);
+
+    }, 300);
+
+}
+
+</script>
+
+</body>
+</html>
